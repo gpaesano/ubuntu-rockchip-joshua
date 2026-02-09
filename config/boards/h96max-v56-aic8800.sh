@@ -15,19 +15,25 @@ function config_image_hook__h96max-v56() {
     local suite="$3"
 
     if [ "${suite}" == "jammy" ] || [ "${suite}" == "noble" ]; then
-        # Kernel modules to load at boot time
-        echo "sprdbt_tty" >> "${rootfs}/etc/modules"
-        echo "sprdwl_ng" >> "${rootfs}/etc/modules"
-    
-        # Install BCMDHD SDIO WiFi and Bluetooth DKMS
-        chroot "${rootfs}" apt-get -y install dkms bcmdhd-sdio-dkms
+        # Kernel modules to blacklist
+        (
+            echo "blacklist aic8800_bsp"
+            echo "blacklist aic8800_fdrv"
+            echo "blacklist aic8800_btlpm"
+        ) > "${rootfs}/etc/modprobe.d/aic8800.conf"
 
-        # Enable bluetooth for AP6275P
-        mkdir -p "${rootfs}/usr/lib/scripts"
-        cp "${overlay}/usr/lib/systemd/system/ap6275p-bluetooth.service" "${rootfs}/usr/lib/systemd/system/ap6275p-bluetooth.service"
-        cp "${overlay}/usr/lib/scripts/ap6275p-bluetooth.sh" "${rootfs}/usr/lib/scripts/ap6275p-bluetooth.sh"
-        cp "${overlay}/usr/bin/brcm_patchram_plus" "${rootfs}/usr/bin/brcm_patchram_plus"
-        chroot "${rootfs}" systemctl enable ap6275p-bluetooth
+        # Install AIC8800 SDIO WiFi and Bluetooth DKMS
+        chroot "${rootfs}" apt-get -y install dkms aic8800-firmware aic8800-sdio-dkms
+
+        # shellcheck disable=SC2016
+        echo 'SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="88:00:*", NAME="$ENV{ID_NET_SLOT}"' > "${rootfs}/etc/udev/rules.d/99-radxa-aic8800.rules"
+
+        # Enable the on-board bluetooth module AIC8800
+        mkdir -p "${rootfs}/usr/lib/scripts/"
+        cp "${overlay}/usr/bin/bt_test" "${rootfs}/usr/bin/bt_test"
+        cp "${overlay}/usr/lib/scripts/aic8800-bluetooth.sh" "${rootfs}/usr/lib/scripts/aic8800-bluetooth.sh"
+        cp "${overlay}/usr/lib/systemd/system/aic8800-bluetooth.service" "${rootfs}/usr/lib/systemd/system/aic8800-bluetooth.service"
+        chroot "${rootfs}" systemctl enable aic8800-bluetooth
     fi
 
     return 0
