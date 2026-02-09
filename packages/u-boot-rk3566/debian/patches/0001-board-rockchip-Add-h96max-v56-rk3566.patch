@@ -168,7 +168,7 @@ index 0000000000..e88f05e6f5
 +		wifi_chip_type = "ap6398s";
 +		pinctrl-names = "default";
 +		WIFI,poweren_gpio = <&gpio2 RK_PB2 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
++		status = "disabled";
 +	};
 +
 +	wireless_bluetooth: wireless-bluetooth {
@@ -184,7 +184,7 @@ index 0000000000..e88f05e6f5
 +		device-wakeup-gpios = <&gpio2 RK_PC1 GPIO_ACTIVE_HIGH>;
 +		host-wakeup-gpios = <&gpio2 RK_PC0 GPIO_ACTIVE_HIGH>;
 +		shutdown-gpios = <&gpio2 RK_PB7 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
++		status = "disabled";
 +	};
 +
 +	openvfd {
@@ -804,7 +804,7 @@ index 0000000000..e88f05e6f5
 +	non-removable;
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&sdmmc1_bus4 &sdmmc1_cmd &sdmmc1_clk>;
-+	sd-uhs-sdr104;
++	sd-uhs-sdr50;
 +	status = "okay";
 +};
 +
@@ -1286,7 +1286,7 @@ index 0000000000..e88f05e6f5
 +		wifi_chip_type = "ap6398s";
 +		pinctrl-names = "default";
 +		WIFI,poweren_gpio = <&gpio2 RK_PB2 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
++		status = "disabled";
 +	};
 +
 +	wireless_bluetooth: wireless-bluetooth {
@@ -1302,7 +1302,7 @@ index 0000000000..e88f05e6f5
 +		device-wakeup-gpios = <&gpio2 RK_PC1 GPIO_ACTIVE_HIGH>;
 +		host-wakeup-gpios = <&gpio2 RK_PC0 GPIO_ACTIVE_HIGH>;
 +		shutdown-gpios = <&gpio2 RK_PB7 GPIO_ACTIVE_HIGH>;
-+		status = "okay";
++		status = "disabled";
 +	};
 +
 +	openvfd {
@@ -1922,7 +1922,7 @@ index 0000000000..e88f05e6f5
 +	non-removable;
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&sdmmc1_bus4 &sdmmc1_cmd &sdmmc1_clk>;
-+	sd-uhs-sdr104;
++	sd-uhs-sdr50;
 +	status = "okay";
 +};
 +
