@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-export BOARD_NAME="h96 v56 tvbox"
+export BOARD_NAME="h96 v56 tvbox aic8800"
 export BOARD_MAKER="h96-max"
 export BOARD_SOC="Rockchip RK3566"
 export BOARD_CPU="ARM Cortex A55"
